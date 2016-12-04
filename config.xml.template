@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://logging.apache.org/log4php/">
+  <appender name="all" class="LoggerAppenderRollingFile">
+    <param name="append" value="true" />
+    <param name="fileName" value="all.log" />
+    <param name="maxBackupIndex" value="5" />
+    <param name="maxFileSize" value="1MB" />
+    <layout class="LoggerLayoutPattern">
+      <param name="conversionPattern" value="%date{Y-m-d H:i:s.u} [%level|%logger] %msg%n" />
+    </layout>
+  </appender>
+  <appender name="debug" class="LoggerAppenderRollingFile">
+    <param name="append" value="true" />
+    <param name="fileName" value="debug.log" />
+    <param name="maxBackupIndex" value="5" />
+    <param name="maxFileSize" value="1MB" />
+    <filter class="LoggerFilterLevelRange">
+      <param name="levelMax" value="debug" />
+      <param name="levelMin" value="debug" />
+    </filter>
+    <layout class="LoggerLayoutPattern">
+      <param name="conversionPattern" value="%date{Y-m-d H:i:s.u} [%level|%logger] %msg%n" />
+    </layout>
+  </appender>
+  <appender name="error" class="LoggerAppenderRollingFile">
+    <param name="append" value="true" />
+    <param name="fileName" value="error.log" />
+    <param name="maxBackupIndex" value="5" />
+    <param name="maxFileSize" value="1MB" />
+    <param name="threshold" value="error" />
+    <layout class="LoggerLayoutPattern">
+      <param name="conversionPattern" value="%date{Y-m-d H:i:s.u} [%level|%logger] %msg%n" />
+    </layout>
+  </appender>
+  <appender name="fatal" class="LoggerAppenderRollingFile">
+    <param name="append" value="true" />
+    <param name="fileName" value="fatal.log" />
+    <param name="maxBackupIndex" value="5" />
+    <param name="maxFileSize" value="1MB" />
+    <param name="threshold" value="fatal" />
+    <layout class="LoggerLayoutPattern">
+      <param name="conversionPattern" value="%date{Y-m-d H:i:s.u} [%level|%logger] %msg%n" />
+    </layout>
+  </appender>
+  <appender name="data" class="LoggerAppenderRollingFile">
+    <param name="append" value="true" />
+    <param name="fileName" value="data.log" />
+    <param name="maxBackupIndex" value="5" />
+    <param name="maxFileSize" value="1MB" />
+    <filter class="LoggerFilterStringMatch">
+      <param name="stringToMatch" value="|data] " />
+    </filter>
+    <filter class="LoggerFilterLevelRange">
+      <param name="levelMax" value="warn" />
+      <param name="levelMin" value="info" />
+    </filter>
+    <layout class="LoggerLayoutPattern">
+      <param name="conversionPattern" value="%date{Y-m-d H:i:s.u} [%level|%logger] %msg%n" />
+    </layout>
+  </appender>
+  <appender name="journal" class="LoggerAppenderRollingFile">
+    <param name="append" value="true" />
+    <param name="fileName" value="journal.log" />
+    <param name="maxBackupIndex" value="5" />
+    <param name="maxFileSize" value="1MB" />
+    <filter class="LoggerFilterStringMatch">
+      <param name="stringToMatch" value="|journal] " />
+    </filter>
+    <filter class="LoggerFilterLevelRange">
+      <param name="levelMax" value="debug" />
+      <param name="levelMin" value="debug" />
+    </filter>
+    <layout class="LoggerLayoutPattern">
+      <param name="conversionPattern" value="%date{Y-m-d H:i:s.u} [%level|%logger] %msg%n" />
+    </layout>
+  </appender>
+  <root>
+    <appender_ref ref="all" />
+    <appender_ref ref="debug" />
+    <appender_ref ref="journal" />
+    <appender_ref ref="data" />
+    <appender_ref ref="error" />
+    <appender_ref ref="fatal" />
+  </root>
+</configuration>
