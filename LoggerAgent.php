@@ -29,6 +29,14 @@ class LoggerAgent {
   private static $logDir = '';
 
   /**
+   * Names as mocks which mimic instances of Logger.
+   * When the argument passed to #getLogger is in this field,
+   * it returns a mock object.
+   * @var [array<string>]
+   */
+  private static $mockNames = [];
+
+  /**
    * Constructor.
    * Configure Logger and set its instances
    * to static member variables.
@@ -124,5 +132,17 @@ class LoggerAgent {
    */
   public static function setLogDir($logDir) {
     self::$logDir = $logDir;
+  }
+
+  /**
+   * Set names as mocks which mimic instances of Logger.
+   * A mock has the methods to receive to write
+   * but they write no logs.
+   * Names of the methods are the same names
+   * consistent with methods Logger has.
+   * @param [array<string>] $mockNames - It has names of logger as mocks
+   */
+  public static function setMockNames(array $mockNames) {
+    self::$mockNames = $mockNames;
   }
 }
