@@ -2,12 +2,14 @@
 
 namespace MyLocalLogger;
 
+require_once(dirname(__FILE__) . '/Mock.php');
+
 /**
  * This class manages instances of the class of log4php Logger.
  *
  * @author  indeep-xyz
  * @package MyLocalLoggers
- * @version 0.1.0
+ * @version 0.1.1
  */
 class LoggerAgent {
 
@@ -82,11 +84,18 @@ class LoggerAgent {
   }
 
   /**
-   * Initialize instances of Logger.
+   * Initialize The field "loggers".
+   * Its item is initialized into a Logger instance,
+   * or set a mock when a key name is in the static field mockNames.
    * @param [array] $loggerKeys - The keys as names of Logger instances
    */
   private function initializeLoggers(array $loggerKeys) {
     foreach ($loggerKeys as $key) {
+      if (in_array($key, self::$mockNames)) {
+        $this->loggers[$key] = new Mock();
+        continue;
+      }
+
       $this->loggers[$key] = \Logger::getLogger($key);
     }
   }
